@@ -17,7 +17,10 @@ export const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("/api/v1/user/logout");
+      const response = await axios.get("/api/v1/user/logout",{
+        headers: { 
+          'Accept': 'application/json' 
+        }});
       toast.success(response.data.msg);
       navigate("/");
     } catch (error) {
@@ -29,7 +32,10 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("api/v1/account/balance");
+        const response = await axios.get("api/v1/account/balance", {
+          headers: { 
+            'Accept': 'application/json' 
+          }});
         const { balance, user } = response.data;
 
         setBalance(balance !== undefined ? balance.toFixed(2) : "0.00");
