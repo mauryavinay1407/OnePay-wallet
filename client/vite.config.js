@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server:{
     proxy: {
-     '/api/v1' : 'http://localhost:4001',
+     '/api/v1' : 'https://onepay-wallet.onrender.com',
      },
    },
   plugins: [react()],
