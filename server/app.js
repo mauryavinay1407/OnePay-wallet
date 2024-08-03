@@ -5,7 +5,7 @@ const mainRouter=require("./routes/index.routes")
 const cors=require('cors');
 
 const corsOptions = {
-    origin: 'https://my-app-client.onrender.com',
+    origin: 'https://onepay-wallet-qwcn.onrender.com',
     optionsSuccessStatus: 200
   };
   
