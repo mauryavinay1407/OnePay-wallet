@@ -10,29 +10,30 @@ export const Users = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`api/v1/user/bulk?filter=${filter}`); 
+      const response = await axios.get(`api/v1/user/bulk?filter=${filter}`);
       setUsers(response.data.user);
     };
     fetchData();
   }, [filter]);
+
   return (
-    <>
+    <div className="w-full flex flex-col items-center p-5">
       <input
         onChange={(e) => setFilter(e.target.value)}
         value={filter}
         type="text"
-        placeholder={"Search users..."}
-        className=" border-gray-500 w-9/12 p-2 border-2 rounded text-sm outline-1"
+        placeholder="Search users..."
+        className="border-gray-500 w-full md:w-9/12 p-2 mb-4 border-2 rounded text-sm outline-1"
       />
       {users.length > 0 ? (
         users.map((user) => (
           <div
             key={user._id}
-            className="bg-gray-100 flex justify-between items-center border-gray-500 w-9/12 p-2 my-2 border-2 rounded text-sm"
+            className="bg-gray-100 flex flex-col md:flex-row justify-between items-center border-gray-500 w-full md:w-9/12 p-2 my-2 border-2 rounded text-sm"
           >
-            <div className="text-gray-800  flex items-center font-medium text-lg mr-10">
+            <div className="text-gray-800 flex items-center font-medium text-lg mb-2 md:mb-0 md:mr-10">
               <button
-                className="h-8 w-8 mr-3 rounded-full "
+                className="h-8 w-8 mr-3 rounded-full"
                 style={{
                   backgroundColor: `rgb(${Math.floor(
                     Math.random() * 255
@@ -45,12 +46,12 @@ export const Users = () => {
               </button>
               {user.firstname}
             </div>
-            <div className="">
+            <div>
               <ButtonBox
                 onClick={() => {
                   navigate(`/send?id=${user._id}&name=${user.firstname}`);
                 }}
-                label={"Send Money"}
+                label="Send Money"
                 styles={{ height: "2.8rem" }}
               />
             </div>
@@ -59,6 +60,6 @@ export const Users = () => {
       ) : (
         <div>User not found</div>
       )}
-    </>
+    </div>
   );
 };
