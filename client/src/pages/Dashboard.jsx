@@ -17,11 +17,9 @@ export const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
-      console.log("start");
       const response = await axios.get("/api/v1/user/logout");
-      console.log("end");
       toast.success(response.data.msg);
-      navigate("/signin");
+      navigate("/");
     } catch (error) {
       console.error("Logout failed", error);
       toast.error("Logout failed");
