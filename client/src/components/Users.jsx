@@ -10,8 +10,13 @@ export const Users = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`api/v1/user/bulk?filter=${filter}`);
-      setUsers(response.data.user);
+      try {
+        const response = await axios.get(`api/v1/user/bulk?filter=${filter}`);
+        setUsers(Array.isArray(response.data.user) ? response.data.user : []);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setUsers([]);
+      }
     };
     fetchData();
   }, [filter]);
@@ -58,7 +63,7 @@ export const Users = () => {
           </div>
         ))
       ) : (
-        <div>User not found</div>
+        <div>No users found</div>
       )}
     </div>
   );

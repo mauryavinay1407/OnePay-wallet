@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { Heading } from '../components/Heading';
 import { ButtonDash } from '../components/ButtonDash';
 import { Popup } from '../components/Popup';
-import { InputBox } from '../components/InputBox';
 import { Users } from '../components/Users';
 
 export const Dashboard = () => {
@@ -17,19 +16,31 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    console.log("start");
-    const response = await axios.get("/api/v1/user/logout");
-    console.log("end");
-    toast.success(response.data.msg);
-    navigate("/signin");
+    try {
+      console.log("start");
+      const response = await axios.get("/api/v1/user/logout");
+      console.log("end");
+      toast.success(response.data.msg);
+      navigate("/signin");
+    } catch (error) {
+      console.error("Logout failed", error);
+      toast.error("Logout failed");
+    }
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get("api/v1/account/balance");
-      setBalance(response.data.balance.toFixed(2));
-      setName(response.data.user.firstname);
-      setUser(response.data.user);
+      try {
+        const response = await axios.get("api/v1/account/balance");
+        const { balance, user } = response.data;
+
+        setBalance(balance !== undefined ? balance.toFixed(2) : "0.00");
+        setName(user ? user.firstname : "Guest");
+        setUser(user || {});
+      } catch (error) {
+        console.error("Fetching data failed", error);
+        toast.error("Fetching data failed");
+      }
     }
     fetchData();
   }, []);
