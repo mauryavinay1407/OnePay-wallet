@@ -116,8 +116,9 @@ const updateUser=asyncHandler(async(req,res)=>{
        return res.json({
     msg:"You've entered wrong inputs!"})
 
-    const hashedPassword=await bcrypt.hash(reqBody.password,10);
-    reqBody.password=hashedPassword;
+    if (reqBody.password) {
+        reqBody.password = await bcrypt.hash(reqBody.password, 10);
+      }
 
     await User.updateOne({ _id: req.userId }, {$set: reqBody});
 	

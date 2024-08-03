@@ -20,7 +20,7 @@ export const Popup = ({ user, setpopup }) => {
       const response = await axios.put("api/v1/user/me", {
         firstname,
         lastname,
-        password
+        ...(password && { password }) 
       });
       toast.success(response.data.msg);
       setpopup(false);
