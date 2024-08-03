@@ -66,21 +66,21 @@ const signupUser=asyncHandler(async(req,res)=>{
         
         if(!success){
             return res.status(411).json({
-                message:"Incorrect inputs"
+                error:"Incorrect inputs"
             })
         }
 
         const user=await User.findOne({username:req.body.username})
 
         if(!user)
-        return res.json({
-        message:"User doesn't exist"
+        return res.status(401).json({
+            error:"User doesn't exist"
         })
 
       const hashedPassword=await bcrypt.compare(req.body.password,user.password);
       if(!hashedPassword)
       return res.status(401).json({
-       message:"You've entered wrong password!!!"
+       error:"You've entered wrong password!!!"
     })
 
     const payload={
@@ -98,7 +98,7 @@ const signupUser=asyncHandler(async(req,res)=>{
 
      res.cookie("token",token,options);
      res.status(200).json({
-        msg:"Signin successfully",
+        message:"Signin successfully",
 
      })
     

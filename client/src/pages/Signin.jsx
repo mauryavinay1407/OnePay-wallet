@@ -24,8 +24,12 @@ export const Signin = () => {
           username,
           password
         });
-        toast.success(response.data.msg);
-        navigate("/dashboard")
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          navigate("/dashboard");
+        } else {
+          toast.error(response.data.error || "Signin failed");
+        }
     } catch (error) {
       toast.error("Signin failed")
       console.log("Error occured while signin",error)

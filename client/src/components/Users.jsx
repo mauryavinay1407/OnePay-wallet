@@ -12,6 +12,7 @@ export const Users = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`api/v1/user/bulk?filter=${filter}`);
+      
         setUsers(Array.isArray(response.data.user) ? response.data.user : []);
       } catch (error) {
         console.error("Error fetching users:", error);
