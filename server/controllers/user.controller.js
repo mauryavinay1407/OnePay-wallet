@@ -103,7 +103,7 @@ const signupUser=asyncHandler(async(req,res)=>{
      })
     
     } catch (error) {
-        console.log("Login failed!!!")
+        console.log("Login failed!")
         throw new Error(error);
       }
   })
