@@ -32,6 +32,7 @@ export const Dashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("api/v1/account/balance");
+        console.log(response.data);
         const { balance, user } = response.data;
 
         setBalance(balance !== undefined ? balance.toFixed(2) : "0.00");
